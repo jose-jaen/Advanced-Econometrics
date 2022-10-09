@@ -36,7 +36,7 @@ def OLS_estimator(feature, target, intercept: bool):
 
 
 def sigma_estimator(feature, target, intercept: bool):
-    """ Retrieves the sigma estimator for some dataframe
+    """ Retrieves the variance estimator for an OLS coefficient vector
 
     - Parameters:
         - feature = Pandas dataframe containing feature matrix
@@ -44,7 +44,7 @@ def sigma_estimator(feature, target, intercept: bool):
         - intercept = Whether to include an intercept or not
     
     - Output:
-        - s2 = sigma estimator
+        - s2 = OLS variance estimator
     """
     # Retrieve OLS estimator
     b = OLS_estimator(feature, target, intercept)
