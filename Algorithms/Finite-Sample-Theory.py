@@ -105,7 +105,7 @@ def individual_test(coef, value, feature, target, intercept: bool, sign: str):
 
     # Compute test statistic
     t = (b[coef] - value)/(np.sqrt(s2[coef, coef]))
-    print(b)
+    
     # Print results depending on sign
     if sign == 'two.sided':
         pvalue = 2*stats.t.cdf(t, df)
