@@ -1,6 +1,7 @@
 # Advanced Econometrics
 
-How does increasing the Minimum Wage affect youth unemployment? Is rent control an effective policy? Did some drug really improve patients' health?
+How does increasing the Minimum Wage affect youth unemployment? Is rent control an effective policy? 
+Did some drug really improve patients' health?
 
 All of these causal questions require quantitative techniques to measure treatment effects.
 
