@@ -14,7 +14,7 @@ It is encouraged to follow the documents in the presented order so as to fully g
 
 In Finite Sample Theory, restrictive assumptions on the sample $(\textbf{y}, \textbf{X})$ are made.
 
-Then, in Large Sample Theory, said assumptions are relaxed and made on the Data Generating Process {$y_i, \textbf{x}_i$}.
+Then, in Large Sample Theory, said assumptions are relaxed and made on the Data Generating Process (DGP).
 
 Finally, correlation with the error term is tackled with Method of Moments and General Method of Moments estimation.
 
