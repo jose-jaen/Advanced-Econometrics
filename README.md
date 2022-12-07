@@ -34,6 +34,6 @@ Selected solutions of graduate-level Quantitative Economics textbook.
 
 Algorithms and estimation procedures coded in Python programming language.
 
-- [Python code](https://github.com/jose-jaen/Advanced-Econometrics/tree/main/Algorithms).
+- [Python code](https://github.com/jose-jaen/Advanced-Econometrics/tree/main/Algorithms/Python%20Code).
 
 Project started in 03/2022 (ongoing).
