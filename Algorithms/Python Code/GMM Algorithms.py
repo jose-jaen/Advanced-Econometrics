@@ -75,7 +75,7 @@ def gmm_estimator(data, target, endo_vars, exo_vars, instr):
     if len(exo_vars) + len(instr) + 1 < len(endo_vars):
         raise ValueError('Equation is underindentified, try again')
 
-    # Check if the equation is overidentified
+    # Check if the equation is exactly identified
     elif len(exo_vars) + len(instr) + 1 == len(endo_vars):
         raise ValueError('Equation is exactly identified, try the IV estimator!')
 
