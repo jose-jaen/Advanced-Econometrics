@@ -33,9 +33,7 @@ class OLS:
     def data_matrices(self):
         """" Sets up data matrices for modeling
         """
-        regressors = self.regressors
-        target = self.target
-        regressors, target = regressors.to_numpy(), target.to_numpy()
+        regressors, target = self.regressors.to_numpy(), self.target.to_numpy()
         cross_matrix = np.matmul(regressors.T, regressors)
 
         # Invert cross matrix if it is nonsingular
