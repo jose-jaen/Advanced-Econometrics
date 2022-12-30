@@ -24,16 +24,17 @@ Finally, correlation with the error term is tackled with Method of Moments and G
 
 - [GMM Causal Inference](https://github.com/jose-jaen/Advanced-Econometrics/blob/main/Algorithms/GMM%20Causal%20Inference.pdf).
 
+# Python implementations
+
+Algorithms, estimation procedures and Statistical Inference tests coded in Python programming language.
+
+- [Python code](https://github.com/jose-jaen/Advanced-Econometrics/tree/main/Algorithms/Python%20Code).
+
 # Hayashi's *Econometrics*
 
 Selected solutions of graduate-level Quantitative Economics textbook.
 
 - [Solutions to *Econometrics*](https://github.com/jose-jaen/Advanced-Econometrics/tree/main/Econometric%20Theory).
 
-# Python implementations
-
-Algorithms, estimation procedures and Statistical Inference tests coded in Python programming language.
-
-- [Python code](https://github.com/jose-jaen/Advanced-Econometrics/tree/main/Algorithms/Python%20Code).
 
 Project started in 03/2022 (ongoing).
