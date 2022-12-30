@@ -21,7 +21,6 @@ class OLS:
         - ols_summary = Data matrix with all previous methods' results
     """
     def __init__(self, target, regressors, intercept=True):
-        # Assignments
         self.target = target
         self.regressors = regressors
 
@@ -99,7 +98,7 @@ class OLS:
         return lb, ub
 
     def ols_summary(self):
-        """ Provides summary of OLS estimation
+        """ Provides summary of OLS estimation in SM fashion
         """
         cols = self.regressors.columns
         b = self.ols_estimator()
