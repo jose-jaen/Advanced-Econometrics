@@ -21,6 +21,7 @@ class OLS:
         - ols_summary = Data matrix with all previous methods' results
     """
     def __init__(self, target, regressors, intercept=True):
+        # Assignments
         self.target = target
         self.regressors = regressors
 
@@ -98,7 +99,7 @@ class OLS:
         return lb, ub
 
     def ols_summary(self):
-        """ Provides summary of OLS estimation in SM fashion
+        """ Provides summary of OLS estimation
         """
         cols = self.regressors.columns
         b = self.ols_estimator()
@@ -112,6 +113,17 @@ class OLS:
 
 
 class OLS_tests(OLS):
+    """ Performs statistical significance inference on OLS estimates
+
+        - Initialization parameters (inherited):
+            - target = Pandas dataframe with target variable
+            - regressors = Pandas dataframe with predictors
+            - intercept = Whether or not to include a constant
+
+        - Methods:
+            - individual_test = Individual statistical significance test
+            - joint_test = Joint significance hypothesis test
+        """
     def __init__(self, target, regressors, intercept=True):
         super().__init__(
             target, regressors, intercept
@@ -131,7 +143,7 @@ class OLS_tests(OLS):
 
         # Retrieve OLS estimator and variance estimator
         b = self.ols_estimator()
-        s2 = self.ols_se()
+        se = self.ols_se()
 
         # Compute degrees of freedom
         n, k = len(target), len(b)
@@ -143,7 +155,7 @@ class OLS_tests(OLS):
         b_k = b[idx]
 
         # Calculate test-statistic
-        t_stat = (b_k - self.value)/s2[idx]
+        t_stat = (b_k - self.value)/se[idx]
 
         # Print results depending on sign
         if self.sign == 'two.sided':
@@ -152,6 +164,57 @@ class OLS_tests(OLS):
             pvalue = 1 - t.cdf(t_stat, df)
         else:
             pvalue = t.cdf(t_stat, df)
+
+        # Check if H0 is rejected
+        if pvalue <= 0.05:
+            print(f'H0 is rejected with p-value {pvalue.round(3)}')
+        else:
+            print(f'Failed to reject H0 with p-value {pvalue.round(3)}')
+
+    def joint_test(self, coefs: list, values: list):
+        """ Computes outcome of joint statistical significance test
+        """
+        assert len(coefs) == len(values), f'Number of estimates to be tested ' \
+            f'should coincide with their hypothesized values!'
+        self.coefs = coefs
+        self.values = values
+
+        # Set up data matrices
+        regressors, target = self.regressors, self.target
+
+        # Retrieve OLS estimator and variance estimator
+        b = self.ols_estimator()
+        se = np.diag(self.ols_se())
+
+        # Compute degrees of freedom
+        n, k = len(target), len(b)
+        df1 = n - k
+
+        # Define restriction matrices and value vector
+        r = values
+        R = [[0] * k for i in range(len(r))]
+        cols = list(regressors.columns)
+        idx = [cols.index(i) for i in self.coefs]
+        for i, j in zip(range(len(r)), idx):
+            R[i][j] = 1
+        R = np.asarray(R)
+        df2 = len(r)
+        assert np.rank(R) == df2, f'Failure of rank condition! ' \
+            f'Check for linearly dependent restrictions!'
+
+        # Set up test-statistic
+        null = np.matmul(R, b) - r
+        var = np.matmul(np.matmul(R, se), R.T)
+
+        # Invert variance if it is nonsingular
+        try:
+            var_inv = np.linalg.inv(var)
+        except:
+            var_inv = np.linalg.pinv(var)
+
+        # Compute F-statistic and associated p-value
+        F = np.matmul(np.matmul(null.T, var_inv), null)/df2
+        pvalue = f.sf(F, df2, df1)
 
         # Check if H0 is rejected
         if pvalue <= 0.05:
