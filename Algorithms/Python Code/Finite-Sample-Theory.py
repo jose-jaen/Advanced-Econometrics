@@ -122,7 +122,7 @@ class OLS_tests(OLS):
         - Methods:
             - individual_test = Individual statistical significance test
             - joint_test = Joint significance hypothesis test
-        """
+    """
     def __init__(self, target, regressors, intercept=True):
         super().__init__(
             target, regressors, intercept
