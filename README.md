@@ -32,7 +32,7 @@ Selected solutions of graduate-level Quantitative Economics textbook.
 
 # Python implementations
 
-Algorithms and estimation procedures coded in Python programming language.
+Algorithms, estimation procedures and Statistical Inference tests coded in Python programming language.
 
 - [Python code](https://github.com/jose-jaen/Advanced-Econometrics/tree/main/Algorithms/Python%20Code).
 
