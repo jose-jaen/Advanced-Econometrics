@@ -68,7 +68,7 @@ class OLS:
     def ols_t(self):
         """ Retrieves t-statistic for individual significance
         """
-        b = self.ols_estimator()
+        b, target = self.ols_estimator(), self.target
         se = self.ols_se()
         t_stat = np.divide(b, se)
         n, k = len(target), len(b)
