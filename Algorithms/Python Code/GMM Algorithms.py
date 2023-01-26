@@ -131,7 +131,7 @@ def gmm_estimator(data, target, endo_vars, exo_vars, instr):
         except:
             S_inv = np.linalg.pinv(S)
 
-        # Retrieve final GMM estimator
+        # Retrieve GMM estimator
         lhs = np.linalg.inv(np.matmul(np.matmul(S_zx.T, S_inv), S_zx))
         rhs = np.matmul(np.matmul(S_zx.T, S_inv), S_zy)
         gmm_estim = np.matmul(lhs, rhs)
