@@ -4,7 +4,7 @@ import numpy as np
 from scipy.stats import t
 
 class OLS:
-    """ Retrieves OLS estimator, standard errors and confidence intervals
+    """Retrieves OLS estimator, standard errors and confidence intervals
 
     - Initialization parameters:
         - target = Pandas dataframe with target variable
@@ -30,8 +30,7 @@ class OLS:
             self.regressors.insert(loc=0, column='intercept', value=constant)
 
     def data_matrices(self):
-        """" Sets up data matrices for modeling
-        """
+        """"Sets up data matrices for modeling"""
         regressors = self.regressors
         target = self.target
         regressors, target = regressors.to_numpy(), target.to_numpy()
@@ -46,8 +45,7 @@ class OLS:
         return regressors, target, cross_matrix_inv
 
     def ols_estimator(self):
-        """ Retrieves OLS estimator vector
-        """
+        """Retrieves OLS estimator vector"""
         regressors, target, cross_matrix_inv = self.data_matrices()
         dot_prod = np.dot(regressors.T, target)
         b = np.matmul(cross_matrix_inv, dot_prod)
@@ -55,8 +53,7 @@ class OLS:
         return b
 
     def ols_se(self):
-        """ Retrieves OLS estimator standard errors (assumes homoskedasticity)
-        """
+        """Retrieves OLS estimator standard errors (assumes homoskedasticity)"""
         b = self.ols_estimator()
         regressors, target, cross_matrix_inv = self.data_matrices()
         n, k = len(target), len(b)
@@ -66,8 +63,7 @@ class OLS:
         return se
 
     def ols_t(self):
-        """ Retrieves t-statistic for individual significance
-        """
+        """Retrieves t-statistic for individual significance"""
         b, target = self.ols_estimator(), self.target
         se = self.ols_se()
         t_stat = np.divide(b, se)
@@ -75,8 +71,7 @@ class OLS:
         return t_stat, 2*t.sf(abs(t_stat), n - k).round(3)
 
     def ols_F(self):
-        """ Calculates F-statistic for joint significance
-        """
+        """Calculates F-statistic for joint significance"""
         b = self.ols_estimator()
         regressors, target, cross_matrix_inv = self.data_matrices()
         n, k = len(target), len(b)
@@ -88,8 +83,7 @@ class OLS:
         return F
 
     def ols_ci(self):
-        """ Computes onfidence intervals with 5% significance level
-        """
+        """Computes onfidence intervals with 5% significance level"""
         b = self.ols_estimator()
         se = self.ols_se()
         lb, ub = b - se*1.96, b + se*1.96
@@ -98,8 +92,7 @@ class OLS:
         return lb, ub
 
     def ols_summary(self):
-        """ Provides summary of OLS estimation
-        """
+        """Provides summary of OLS estimation"""
         cols = self.regressors.columns
         b = self.ols_estimator()
         se = self.ols_se()
@@ -112,7 +105,7 @@ class OLS:
 
 
 class OLS_tests(OLS):
-    """ Performs statistical significance inference on OLS estimates
+    """Performs statistical significance inference on OLS estimates
 
         - Initialization parameters (inherited):
             - target = Pandas dataframe with target variable
@@ -129,8 +122,7 @@ class OLS_tests(OLS):
         )
 
     def individual_test(self, coef: str, value: float, sign: str):
-        """ Returns outcome of individual significance test
-        """
+        """Returns outcome of individual significance test"""
         assert sign in ['two.sided', 'less', 'great'], f'Sign argument must be either ' \
             f"'two.sided', 'less' or 'great' but '{sign}' was introduced"
         self.coef = coef
@@ -171,8 +163,7 @@ class OLS_tests(OLS):
             print(f'Failed to reject H0 with p-value {pvalue.round(3)}')
 
     def joint_test(self, coefs: list, values: list):
-        """ Computes outcome of joint statistical significance test
-        """
+        """Computes outcome of joint statistical significance test"""
         assert len(coefs) == len(values), f'Number of estimates to be tested ' \
             f'should coincide with their hypothesized values!'
         self.coefs = coefs
