@@ -64,13 +64,13 @@ class AssumptionChecker:
             plt.title('Linearity Assumption')
             plt.show()
 
-    def check_multicollinearity(self) -> int:
+    def check_multicollinearity(self, target_name: str) -> int:
         """Test no multicollinearity assumption and retrieve matrix rank."""
         self._fit_intercept()
 
         # Check container for continuous regressors
         if not self.continuous:
-            self._get_continuous(response_name='retailvalue')
+            self._get_continuous(response_name=target_name)
 
         # Calculate rank of the covariates matrix
         rank = np.linalg.matrix_rank(self.covariates)
